@@ -13,7 +13,7 @@ import { ICanvas, TextAlign, TextBaseline } from '@src/platform/ICanvas';
 import { BarRendererBase, NoteYPosition } from '@src/rendering/BarRendererBase';
 import { AccidentalGlyph } from '@src/rendering/glyphs/AccidentalGlyph';
 import { BarNumberGlyph } from '@src/rendering/glyphs/BarNumberGlyph';
-import { BarSeperatorGlyph } from '@src/rendering/glyphs/BarSeperatorGlyph';
+import { BarSeparatorGlyph } from '@src/rendering/glyphs/BarSeparatorGlyph';
 import { FlagGlyph } from '@src/rendering/glyphs/FlagGlyph';
 import { ClefGlyph } from '@src/rendering/glyphs/ClefGlyph';
 import { Glyph } from '@src/rendering/glyphs/Glyph';
@@ -421,9 +421,9 @@ export class ScoreBarRenderer extends BarRendererBase {
             let drawingInfo = new BeamingHelperDrawInfo();
             h.drawingInfos.set(direction, drawingInfo);
 
-            // the beaming logic works like this: 
-            // 1. we take the first and last note, add the stem, and put a diagnal line between them. 
-            // 2. the height of the diagonal line must not exceed a max height, 
+            // the beaming logic works like this:
+            // 1. we take the first and last note, add the stem, and put a diagnal line between them.
+            // 2. the height of the diagonal line must not exceed a max height,
             //    - if this is the case, the line on the more distant note just gets longer
             // 3. any middle elements (notes or rests) shift this diagonal line up/down to avoid overlaps
 
@@ -810,7 +810,7 @@ export class ScoreBarRenderer extends BarRendererBase {
                 this.addPostBeatGlyph(new RepeatCountGlyph(0, this.getScoreHeight(-0.5), this.bar.masterBar.repeatCount));
             }
         } else {
-            this.addPostBeatGlyph(new BarSeperatorGlyph(0, 0));
+            this.addPostBeatGlyph(new BarSeparatorGlyph(0, 0));
         }
     }
 
@@ -960,7 +960,7 @@ export class ScoreBarRenderer extends BarRendererBase {
     }
 
     public override completeBeamingHelper(helper: BeamingHelper) {
-        // for multi-voice bars we need to register the positions 
+        // for multi-voice bars we need to register the positions
         // for multi-voice rest displacement to avoid collisions
         if (this.bar.isMultiVoice && helper.highestNoteInHelper && helper.lowestNoteInHelper) {
             let highestNotePosition = this.getNoteY(helper.highestNoteInHelper, NoteYPosition.Center);
